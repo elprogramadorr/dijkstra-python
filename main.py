@@ -4,13 +4,19 @@ with open('entrada.txt', 'r') as archivo:
     cantidad_nodos, cantidad_aristas = map(int, archivo.readline().split())
     G= [[] for _ in range(cantidad_nodos+5)]
     for i in range(cantidad_aristas):
-        #d is a string
         a, b, c ,d = archivo.readline().split()
         a, b, c = int(a), int(b), int(c)
-        #i also wanna append d in the adyacence list
         G[a].append(((b, c), d))
 
-
+diccionarioNombres = {}
+with open('nombres.txt', 'r') as archivo2:
+    cantidad_nombres= int(archivo2.readline())
+    for _ in range(cantidad_nombres):
+        valores = archivo2.readline().split()
+        texto = valores[0]
+        n = int(valores[1])
+        numeros = list (map(int, valores[2:]))
+        diccionarioNombres[texto] = (n, numeros)
 
 def dijsktra(inicio,destino):
     distancia = [float('inf') for _ in range(cantidad_nodos+5)]
@@ -38,17 +44,13 @@ def dijsktra(inicio,destino):
                 distancia[vecino] = distancia[nodo] + peso
                 padre[vecino] = nodo
                 heappush(cola, (distancia[vecino], vecino))
-    #print("la distancia mas corta es:", distancia[destino])
-    #print("el tiempo estimado para recorrer es: ", distancia[destino]*6, " segundos")
     
     path = []
     nodo = destino
     while nodo!=inicio:
-        #solo quiero los nombres y la distancia recorrida
         path.append((nombreCalle[nodo], distanciaRecorrida[nodo]))
         nodo = padre[nodo]
     path.reverse()
-    #print("el camino mas corto es: ", path)
     return (distancia[destino], path)
 
 
@@ -56,4 +58,3 @@ dis1, path1 = dijsktra(1, 3)
 print("la distancia mas corta es:", dis1)
 print("el tiempo estimado para recorrer es: ", dis1*6, " segundos")
 print("el camino mas corto es: ", path1)
-
