@@ -1,4 +1,6 @@
-3 3
-1 2 4
-2 1 4
-2 3 10
+4 5
+1 2 4 America
+2 1 4 America
+2 3 10 America
+2 4 2 mierda
+4 3 7 mierda2
