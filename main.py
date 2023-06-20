@@ -21,9 +21,9 @@ with open('./nombres.txt', 'r') as archivo2:
 
 def dijsktra(nombreInicio,nombreDestino):
     inicio = diccionarioNombres[nombreInicio][1][0]
+    listaPosiblesDestinos = diccionarioNombres[nombreDestino][1]
     destino = diccionarioNombres[nombreDestino][1][0]
 
-    print("inicio: ",inicio,"destino: ",destino)
     distancia = [float('inf') for _ in range(cantidad_nodos+5)]
     distancia[inicio] = 0
     
@@ -51,23 +51,31 @@ def dijsktra(nombreInicio,nombreDestino):
                 heappush(cola, (distancia[vecino], vecino))
     
     path = []
+    for i in range(len(listaPosiblesDestinos)):
+        if distancia[listaPosiblesDestinos[i]] < distancia[destino]:
+            destino = listaPosiblesDestinos[i]
     nodo = destino
+    caminoNodos = []
     while nodo!=inicio:
-        print("nodo  ",nodo)
+        caminoNodos.append(nodo)
         path.append((nombreCalle[nodo], distanciaRecorrida[nodo]))
         nodo = padre[nodo]
-    print("nodo  ",nodo)
+    caminoNodos.append(inicio)
+    caminoNodos.reverse()
     path.reverse()
-    return (distancia[destino], path)
+    return ((distancia[destino], path),caminoNodos)
 
 
-dis1, path1 = dijsktra("OVERTIME","SUPERMARKET")
+def agenteBasadoEnObjetivos(origen,destino):
+    ((distancia,camino),caminoNodos)=dijsktra(origen,destino)
+    print("nodos en el camino mas corto: ", caminoNodos)
+    print("la distancia mas corta es:", distancia)
+    hora=distancia*6//3600
+    minuto=(distancia*6%3600)//60
+    segundo=(distancia*6%3600)%60
+    print("el tiempo estimado para recorrer es: ", hora, " horas ", minuto, " minutos ", segundo, " segundos")
+    print("el camino mas corto es: ", camino)
 
-print("la distancia mas corta es:", dis1)
-#el tiempo en segundos es 6 segundos por cada metro, quiero pasarlo a horas, minutos y segundo
-hora = dis1*6//3600
-minuto = (dis1*6%3600)//60
-segundo = (dis1*6%3600)%60
-print("el tiempo estimado para recorrer es: ", hora, " horas ", minuto, " minutos ", segundo, " segundos")
-#print("el tiempo estimado para recorrer es: ", dis1*6, " segundos")
-print("el camino mas corto es: ", path1)
+
+print("efe nomas", diccionarioNombres["Hipermaxi"])
+agenteBasadoEnObjetivos("OVERTIME","BANCO_UNION")
