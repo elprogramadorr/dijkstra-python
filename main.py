@@ -78,4 +78,4 @@ def agenteBasadoEnObjetivos(origen,destino):
 
 
 print("efe nomas", diccionarioNombres["Hipermaxi"])
-agenteBasadoEnObjetivos("OVERTIME","BANCO_UNION")
+agenteBasadoEnObjetivos("BELOIT","Video_Retro")
