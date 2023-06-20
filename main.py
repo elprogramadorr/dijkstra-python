@@ -1,6 +1,6 @@
 import heapq
 from heapq import *
-with open('entrada.txt', 'r') as archivo:
+with open('./entrada.txt', 'r') as archivo:
     cantidad_nodos, cantidad_aristas = map(int, archivo.readline().split())
     G= [[] for _ in range(cantidad_nodos+5)]
     for i in range(cantidad_aristas):
@@ -10,7 +10,7 @@ with open('entrada.txt', 'r') as archivo:
         G[b].append(((a, c), d))
 
 diccionarioNombres = {}
-with open('nombres.txt', 'r') as archivo2:
+with open('./nombres.txt', 'r') as archivo2:
     cantidad_nombres= int(archivo2.readline())
     for _ in range(cantidad_nombres):
         valores = archivo2.readline().split()
